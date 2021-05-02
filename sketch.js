@@ -12,9 +12,9 @@ var gameState,beadroom,garden,washroom;
 function preload(){
   dogImage = loadImage("images/dog.png");
   happyDogImage = loadImage("images/happyDog.png");
-  beadroom = loadImage("images/Bed Room.png");
-  garden = loadImage("images/Garden.png");
-  washroom = loadImage("images/Wash Room.png")
+  //beadroom = loadImage("images/Bed Room.png");
+  //garden = loadImage("images/Garden.png");
+  //washroom = loadImage("images/Wash Room.png")
 }
 	
 
@@ -23,10 +23,10 @@ function setup() {
   createCanvas(1200,400);
 
   database = firebase.database();
-  readState = database.ref('gameState');
-  readState.on("value",function(data));{
-    gameState=data.val;
-  }
+  var readState = database.ref('gameState');
+  readState.on("value",(data)=>{
+    gameState=data.val();
+  });
   
   dog = createSprite(800,250);
   dog.addImage(dogImage);
@@ -87,30 +87,40 @@ function draw() {
     foodS+=1;
     foodObj.updateFoodStock(foodS);
   });
-  if (gameState!="hungary") {
-      feedButton.hide();
-      addFoog.hide();
-      dog.remove();
-  } else {
+
+
+  currentTime = hour();
+  if (currentTime===(feedTime+1)){
+    foodObj.garden();
+    update("playing");
+  }
+  else if (currentTime===(feedTime+2)){
+    foodObj.bedroom();
+    game.update("sleeping");
+  }else if((currentTime>(feedTime+2))&&(currentTime<=(feedTime+4))){
+    foodObj.washroom();
+    update("bathing");
+  }else{
+    foodObj.display();
+    update("hungry");
+  }
+
+
+  if (gameState !== "hungry"){
+    feedButton.hide();
+    addFoodButton.hide();
+    dog.remove();
+  }
+  else{
     feedButton.show();
     addFoodButton.show();
-    dog.addImage(sadDog);
-  } 
-  if (currenttime = lastFed+1 (hour) {
-    food.garden();
-    gameState=playing;
-    function update(state){
-      database.ref('/').update({
-        gameState:state
-      })
-    }
+    foodObj.display();
+    dog.addImage(dogImage);
   }
-  If (currentTime <= lastFed+2 (hours){
-      food.washroom();
-      gameState=washroom;
-      function update(state){
-      database.ref('/').update({
-        gameState:state
-      })
-    }
-  }
+}
+
+function update(state){
+  database.ref('/').update({
+    gameState:state
+  })
+}
