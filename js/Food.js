@@ -36,16 +36,19 @@ class Food{
                 x = x+30;
             }
         }
-        bedroom(){
-            this.image1(this.image,600,200,1200,400);
-        } 
-        garden(){
-            this.image2(this.image,600,200,1200,400);
-        } 
-        washroom(){
-            this.image3(this.image,600,200,1200,400);
-        }
+        
 
 
     }
+    
+     bedroom(){
+        background(this.image1,400,500);
+    } 
+    garden(){
+        background(this.image2,400,500);
+    } 
+    washroom(){
+        background(this.image3,400,500);
+    }
+
 }
