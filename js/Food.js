@@ -36,19 +36,18 @@ class Food{
                 x = x+30;
             }
         }
-        
-
-
     }
-    
-     bedroom(){
-        background(this.image1,400,500);
+
+    bedroom(){
+        background(this.image1,1200,400);
     } 
     garden(){
-        background(this.image2,400,500);
+        background(this.image2,1200,400);
     } 
     washroom(){
-        background(this.image3,400,500);
+        background(this.image3,1200,400);
     }
 
+
+    
 }
