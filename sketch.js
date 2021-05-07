@@ -115,7 +115,7 @@ function draw() {
     feedButton.show();
     addFoodButton.show();
     foodObj.display();
-    dog.addImage(dogImage);
+   
   }
 }
 
